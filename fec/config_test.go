@@ -14,4 +14,5 @@ func TestNewConfig(t *testing.T) {
 		SetPrivateKey("CustomerPrivateKey")
 
 	fmt.Println(c)
+	fmt.Println(c.MerchantNo())
 }

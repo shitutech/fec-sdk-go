@@ -11,6 +11,36 @@ type Config struct {
 	systemPublicKey string
 }
 
+// MerchantNo 获取商户号
+func (c *Config) MerchantNo() string {
+	return c.merchantNo
+}
+
+// ProviderNo 获取服务商号
+func (c *Config) ProviderNo() string {
+	return c.providerNo
+}
+
+// ProductNo 获取产品编号
+func (c *Config) ProductNo() string {
+	return c.productNo
+}
+
+// TaskCode 获取任务编号
+func (c *Config) TaskCode() string {
+	return c.taskCode
+}
+
+// PrivateKey 获取  RSA 私钥
+func (c *Config) PrivateKey() string {
+	return c.privateKey
+}
+
+// SystemPublicKey 获取系统平台 RSA 公钥
+func (c *Config) SystemPublicKey() string {
+	return c.systemPublicKey
+}
+
 // SetMerchantNo 设置商户号
 func (c *Config) SetMerchantNo(merchantNo string) *Config {
 	c.merchantNo = strings.TrimSpace(merchantNo)
