@@ -175,3 +175,79 @@ func (s *Client) userUpdateRespDeal(bizReqData *[]byte) (*models.UserUpdateRespo
 
 	return &respObj.Result, nil
 }
+
+// UserAccount 用户账户开户
+func (s *Client) UserAccount(request *models.UserAccountRequest) (*models.UserAccountResponse, error) {
+	_result := &models.UserAccountResponse{}
+
+	encodeData, err := json.Marshal(request)
+	if err != nil {
+		return _result, errors.New("业务数据 JSON 编码失败")
+	}
+
+	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/open")
+	if err != nil {
+		return _result, err
+	}
+
+	type respStruct struct {
+		commonResp
+		Result models.UserAccountResponse `json:"result,omitempty"`
+	}
+	var respObj respStruct
+
+	err = json.Unmarshal([]byte(respData), &respObj)
+	if err != nil {
+		return _result, errors.New("响应数据 JSON 解码失败")
+	}
+
+	if respObj.Code != 200 {
+		return _result, errors.New(fmt.Sprintf("上游服务响应报告异常。Err: %d::%s", respObj.Code, respObj.Message))
+	}
+
+	if respObj.Result.StatusCode != "1000" {
+		return _result, errors.New(fmt.Sprintf("三方服务响应报告异常。Err: %s:::%s",
+			respObj.Result.StatusCode, respObj.Result.Msg))
+	}
+
+	return &respObj.Result, nil
+}
+
+// UserAccountLive 用户账户开户(活体认证)
+func (s *Client) UserAccountLive(request *models.UserAccountLiveRequest) (*models.UserAccountResponse, error) {
+	_result := &models.UserAccountResponse{}
+
+	request.MerchantNo = s.config.MerchantNo()
+
+	encodeData, err := json.Marshal(request)
+	if err != nil {
+		return _result, errors.New("业务数据 JSON 编码失败")
+	}
+
+	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/open/video")
+	if err != nil {
+		return _result, err
+	}
+
+	type respStruct struct {
+		commonResp
+		Result models.UserAccountResponse `json:"result,omitempty"`
+	}
+	var respObj respStruct
+
+	err = json.Unmarshal([]byte(respData), &respObj)
+	if err != nil {
+		return _result, errors.New("响应数据 JSON 解码失败")
+	}
+
+	if respObj.Code != 200 {
+		return _result, errors.New(fmt.Sprintf("上游服务响应报告异常。Err: %d::%s", respObj.Code, respObj.Message))
+	}
+
+	if respObj.Result.StatusCode != "1000" {
+		return _result, errors.New(fmt.Sprintf("三方服务响应报告异常。Err: %s:::%s",
+			respObj.Result.StatusCode, respObj.Result.Msg))
+	}
+
+	return &respObj.Result, nil
+}

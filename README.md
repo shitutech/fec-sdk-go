@@ -54,8 +54,8 @@ func main() {
 | 用户信息变更 - 影像件    | ``UserIdCardImage()``      | ``UserUpdateIdCardImageRequest``    | ``UserUpdateResponse``       |
 | 用户信息变更 - 拓展业务类型 | ``UserIdBizType()``        | ``UserUpdateBizTypeRequest``        | ``UserUpdateResponse``       |
 | 用户信息变更 - 结算卡信息  | ``UserIdSettlementCard()`` | ``UserUpdateSettlementCardRequest`` | ``UserUpdateResponse``       |
-| 用户账户开户          |                            | ``UserOpenRequest``                 | ``UserOpenResponse``         |
-| 用户账户开户（活体认证）    |                            | ``UserOpenVideoRequest``            | ``UserOpenResponse``         |
+| 用户账户开户          | ``UserAccount()``          | ``UserAccountRequest``              | ``UserAccountResponse``      |
+| 用户账户开户（活体认证）    | ``UserAccountLive()``      | ``UserAccountLiveRequest``          | ``UserAccountResponse``      |
 | 订单支付            |                            | ``OrderPayRequest``                 | ``OrderPayResponse``         |
 | 批次订单号查询订单       |                            | ``OrderQueryBatchRequest``          | ``OrderQueryBatchResponse``  |
 | 子订单详情查询         |                            | ``OrderQueryDetailRequest``         | ``OrderQueryDetailResponse`` |
