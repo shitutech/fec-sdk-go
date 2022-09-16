@@ -129,6 +129,7 @@ func (s *Client) doRequest(bizData string, apiPath string) (string, error) {
 		return "", err
 	}
 
+	req.Header.Add("User-Agent", fmt.Sprintf("fecSDKGo/v%s", VERSION))
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/json")
 
