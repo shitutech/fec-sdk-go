@@ -14,4 +14,54 @@ const (
 	BusTypeSelfEmployed   = "2"
 	BusTypeNatural        = "3"
 	BusTypeProvisionalTax = "4"
+
+	/*
+		查询类型 1:查询基本信息 2:查询开户信息 3:查询会员ID
+	*/
+	UserQueryTypeBase     = "1"
+	UserQueryTypeAccount  = "2"
+	UserQueryTypeMemberId = "3"
+
+	/*
+		账户状态 0:未开通 1:开通中 2:开通成功 3:开通失败 （查询类型 2 返回）
+	*/
+	AcctStatusNotActivated          = "1"
+	AcctStatusActivated             = "2"
+	AcctStatusActivatedSuccessfully = "3"
+	AcctStatusActivatedFailed       = "4"
+
+	/*
+		变更类型 1:变更注册手机号 2:变更影像件 3:拓展业务类型 4：变更结算卡信息
+	*/
+	ChangeTypeMobile         = "1"
+	ChangeTypeIdCardImage    = "2"
+	ChangeTypeBizType        = "3"
+	ChangeTypeSettlementCard = "4"
+
+	/*
+		手续费承担方 1:企业承担 2:客户承担
+	*/
+	CostUndertakerEnterprise = "1"
+	CostUndertakerCustomer   = "2"
+
+	/*
+		批次状态[0:已提交1:已接单2:已拒单3:发放中4:发放成功5:已撤销6:发放失败 7:发放部分成功]
+	*/
+	BatchStatusSubmitted                         = "0"
+	BatchStatusOrderReceived                     = "1"
+	BatchStatusOrderRejected                     = "2"
+	BatchStatusDistributing                      = "3"
+	BatchStatusDistributingSuccessful            = "4"
+	BatchStatusCancelled                         = "5"
+	BatchStatusDistributingFailed                = "6"
+	BatchStatusPartiallyDistributingSuccessfully = "7"
+
+	/*
+		支付状态[0:待支付 1:支付中 2:支付成功 3:支付失败4:已撤回]
+	*/
+	PayStatusPendingPayment    = "0"
+	PayStatusPaymentInProgress = "1"
+	PayStatusPaymentSuccessful = "2"
+	PayStatusPaymentFailed     = "3"
+	PayStatusWithdrawn         = "4"
 )

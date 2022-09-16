@@ -46,17 +46,17 @@ func main() {
 
 # 接口
 
-| API             | 请求类                            | 响应类                             |
-|-----------------|--------------------------------|---------------------------------|
-| 用户注册            | UserRegisterRequest::class     | UserRegisterResponse::class     |
-| 用户信息查询          | UserQueryRequest::class        | UserQueryResponse::class        |
-| 用户信息变更 - 注册手机号  | UserUpdatePhoneRequest::class  | UserUpdateResponse::class       |
-| 用户信息变更 - 影像件    | UserUpdateImageRequest::class  | UserUpdateResponse::class       |
-| 用户信息变更 - 拓展业务类型 | UserUpdateExpandRequest::class | UserUpdateResponse::class       |
-| 用户信息变更 - 结算卡信息  | UserUpdateCardRequest::class   | UserUpdateResponse::class       |
-| 用户账户开户          | UserOpenRequest::class         | UserOpenResponse::class         |
-| 用户账户开户（活体认证）    | UserOpenVideoRequest::class    | UserOpenResponse::class         |
-| 订单支付            | OrderPayRequest::class         | OrderPayResponse::class         |
-| 批次订单号查询订单       | OrderQueryBatchRequest::class  | OrderQueryBatchResponse::class  |
-| 子订单详情查询         | OrderQueryDetailRequest::class | OrderQueryDetailResponse::class |
-| 商户信息查询          | AcctInfoRequest                | AcctInfoResponse                |
+| API             | Client 请求方法                | 请求                                  | 响应                           |
+|-----------------|----------------------------|-------------------------------------|------------------------------|
+| 用户注册            | ``UserRegister()``         | ``UserRegisterRequest``             | ``UserRegisterResponse``     |
+| 用户信息查询          | ``UserQuery()``            | ``UserQueryRequest``                | ``UserQueryResponse``        |
+| 用户信息变更 - 注册手机号  | ``UserUpdateMobile()``     | ``UserUpdateMobileRequest``         | ``UserUpdateResponse``       |
+| 用户信息变更 - 影像件    | ``UserIdCardImage()``      | ``UserUpdateIdCardImageRequest``    | ``UserUpdateResponse``       |
+| 用户信息变更 - 拓展业务类型 | ``UserIdBizType()``        | ``UserUpdateBizTypeRequest``        | ``UserUpdateResponse``       |
+| 用户信息变更 - 结算卡信息  | ``UserIdSettlementCard()`` | ``UserUpdateSettlementCardRequest`` | ``UserUpdateResponse``       |
+| 用户账户开户          |                            | ``UserOpenRequest``                 | ``UserOpenResponse``         |
+| 用户账户开户（活体认证）    |                            | ``UserOpenVideoRequest``            | ``UserOpenResponse``         |
+| 订单支付            |                            | ``OrderPayRequest``                 | ``OrderPayResponse``         |
+| 批次订单号查询订单       |                            | ``OrderQueryBatchRequest``          | ``OrderQueryBatchResponse``  |
+| 子订单详情查询         |                            | ``OrderQueryDetailRequest``         | ``OrderQueryDetailResponse`` |
+| 商户信息查询          | ``AcctInfo()``             | ``AcctInfoRequest``                 | ``AcctInfoResponse``         |

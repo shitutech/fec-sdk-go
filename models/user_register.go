@@ -1,8 +1,8 @@
 package models
 
 type UserRegisterRequest struct {
-	// 服务商号 从配置获取
-	// ProviderNo string `json:"providerNo"`
+	// 服务商号。设置会被覆盖
+	ProviderNo string `json:"providerNo"`
 	// 姓名
 	Name string `json:"name"`
 	// 身份证号
