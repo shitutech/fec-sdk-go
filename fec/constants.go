@@ -2,41 +2,29 @@ package fec
 
 const (
 	/*
-	 支付通道（1:众邦, 2: 支付宝）
+		账户类型1商户开户2服务商开户
 	*/
-	PayPassZb     = "1"
-	PayPassAlipay = "2"
+	AccountTypeMch     = "1"
+	AccountTypeService = "2"
 
 	/*
-		业务类型 1委托代征2.个体户注册(分包)3.自然人代开4.临时税务登记
+	 支付通道（1:众邦 2：支付宝 4.招商银行）
 	*/
-	BusTypeEntrusted      = "1"
-	BusTypeSelfEmployed   = "2"
-	BusTypeNatural        = "3"
-	BusTypeProvisionalTax = "4"
+	PayPassZb       = "1"
+	PayPassAlipay   = "2"
+	PayPassZhaoHang = "4"
 
 	/*
-		查询类型 1:查询基本信息 2:查询开户信息 3:查询会员ID
+		3. 根据身份证号4.根据商户会员Id查询系统会员Id
 	*/
-	UserQueryTypeBase     = "1"
-	UserQueryTypeAccount  = "2"
-	UserQueryTypeMemberId = "3"
+	UserSystemQueryTypeId  = "3"
+	UserSystemQueryTypeMch = "4"
 
 	/*
-		账户状态 0:未开通 1:开通中 2:开通成功 3:开通失败 （查询类型 2 返回）
+		是否通道默认提现卡【0否1是】
 	*/
-	AcctStatusNotActivated          = "1"
-	AcctStatusActivated             = "2"
-	AcctStatusActivatedSuccessfully = "3"
-	AcctStatusActivatedFailed       = "4"
-
-	/*
-		变更类型 1:变更注册手机号 2:变更影像件 3:拓展业务类型 4：变更结算卡信息
-	*/
-	ChangeTypeMobile         = "1"
-	ChangeTypeIdCardImage    = "2"
-	ChangeTypeBizType        = "3"
-	ChangeTypeSettlementCard = "4"
+	UserBindCardIzDefaultN = "0"
+	UserBindCardIzDefaultY = "1"
 
 	/*
 		手续费承担方 1:企业承担 2:客户承担
@@ -64,4 +52,16 @@ const (
 	PayStatusPaymentSuccessful = "2"
 	PayStatusPaymentFailed     = "3"
 	PayStatusWithdrawn         = "4"
+
+	/*
+		是否自定义流水号 【0.不启用1.启用】
+	*/
+	OrderIsCustomN = "0"
+	OrderIsCustomY = "1"
+
+	/*
+		是否使用默认绑定卡 （0 否1 是 ）【支付宝到户是传1】
+	*/
+	OrderIsDefaultCardN = "0"
+	OrderIsDefaultCardY = "1"
 )

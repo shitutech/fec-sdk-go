@@ -1,34 +1,67 @@
 package models
 
 type UserQueryRequest struct {
-	// 查询类型 1:查询基本信息 2:查询开户信息 3:查询会员ID
-	Type string `json:"type"`
-	// 会员ID （查询类型 1/2必传）
-	MemberId string `json:"memberId,omitempty"`
-	// 支付通道 1:众邦 （查询类型 2 必传）
-	PayPass string `json:"payPass,omitempty"`
-	// 身份证号 （查询类型 3 必传）
-	IdCard string `json:"idCard,omitempty"`
+	// 系统会员 ID
+	SystemId string `json:"systemId"`
+	// 支付通道（1:众邦 2:支付宝 4.招商银行）
+	PayPass string `json:"payPass"`
 }
 
 type UserQueryResponse struct {
 	BizCommonResponse
-	// 姓名 （查询类型 1 返回）
-	Name string `json:"name,omitempty"`
-	// 身份证号 （查询类型 1 返回）
-	IdCard string `json:"idCard,omitempty"`
-	// 业务类型 1委托代征2.个体户注册(分包)3.自然人代开4.临时税务登记 （查询类型 1 返回）
-	BusTypeList interface{} `json:"busTypeList,omitempty"`
-	// 开户行编号 （查询类型 1 返回）
+	// 姓名
+	Name string `json:"name"`
+	// 身份证号
+	IdCard string `json:"idCard"`
+	// 开户行编号 （ payPass不为空且绑定过银行卡返回）
 	BankNo string `json:"bankNo,omitempty"`
-	// 开户行 （查询类型1 返回）
+	// 开户行 （payPass不为空且绑定过银行卡返回）
 	BankName string `json:"bankName,omitempty"`
-	// 卡号 （查询类型 1 返回）
+	// 卡号 （payPass不为空且绑定过银行卡返回）
 	CardNo string `json:"cardNo,omitempty"`
-	// 银行预留手机号 （查询类型 1 返回）
+	// 银行预留手机号 （payPass不为空且绑定过银行卡返回）
 	BankPhone string `json:"bankPhone,omitempty"`
-	// 账户状态 0:未开通 1:开通中 2:开通成功 3:开通失败 （查询类型 2 返回）
-	AcctStatus string `json:"acctStatus,omitempty"`
-	// 会员ID （查询类型 3 返回）
+	// 系统会员 ID
+	SystemId string `json:"systemId"`
+}
+
+type UserSystemIdRequest struct {
+	// 3. 根据身份证号4.根据商户会员Id查询系统会员Id
+	Type string `json:"type"`
+	// 身份证号（查询类型3必传;会员身份证号）
+	IdCard string `json:"idCard,omitempty"`
+	// 商户会员ID（查询类型4必传;v1.0用户注册接口返回）
 	MemberId string `json:"memberId,omitempty"`
+}
+
+type UserSystemIdResponse struct {
+	BizCommonResponse
+	// 系统会员ID
+	SystemId string `json:"systemId"`
+}
+
+type UserBindCardsRequest struct {
+	// 系统会员 ID
+	SystemId string `json:"systemId"`
+}
+
+type UserBindCardItem struct {
+	// 支付通道 （1.众邦银行2.支付宝4.招商银行）
+	PayPass string `json:"payPass,omitempty"`
+	// 是否通道默认提现卡【0否1是】
+	IzDefault string `json:"izDefault,omitempty"`
+	// 开户行编号
+	BankNo string `json:"bankNo,omitempty"`
+	// 开户行
+	BankName string `json:"bankName,omitempty"`
+	// 银行卡号
+	CardNo string `json:"cardNo,omitempty"`
+	// 银行预留手机号
+	BankPhone string `json:"bankPhone,omitempty"`
+}
+
+type UserBindCardsResponse struct {
+	BizCommonResponse
+	// 绑卡列表, 详见以下list
+	MemberCardList []UserBindCardItem `json:"memberCardList,omitempty"`
 }

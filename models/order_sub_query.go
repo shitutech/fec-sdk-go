@@ -1,18 +1,18 @@
 package models
 
 type OrderSubQueryRequest struct {
+	// 是否自定义流水号 【0.否1.是】
+	IsCustom string `json:"isCustom"`
 	// 批次流水号
 	OrderNo string `json:"orderNo"`
+	// 自定义批次号 isCustom=1时必传
+	BatchOrderNo string `json:"batchOrderNo,omitempty"`
 }
 
 type OrderSubQueryResponse struct {
 	BizCommonResponse
 	// 交易流水号
 	OrderNo string `json:"orderNo,omitempty"`
-	// 批次流水号
-	BatchOrderId string `json:"batchOrderId,omitempty"`
-	// 会员ID
-	MemberId string `json:"memberId,omitempty"`
 	// 会员名称
 	Name string `json:"name,omitempty"`
 	// 身份证号

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/shitutech/fec-sdk-go/models"
+	"github.com/shitutech/fec-sdk-go/v2/models"
 )
 
 // UserRegister 用户注册
@@ -19,7 +19,7 @@ func (s *Client) UserRegister(request *models.UserRegisterRequest) (*models.User
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/register")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/register")
 	if err != nil {
 		return _result, err
 	}
@@ -47,7 +47,7 @@ func (s *Client) UserRegister(request *models.UserRegisterRequest) (*models.User
 	return &respObj.Result, nil
 }
 
-// UserQuery 用户信息查询
+// UserQuery 会员基本信息查询
 func (s *Client) UserQuery(request *models.UserQueryRequest) (*models.UserQueryResponse, error) {
 	_result := &models.UserQueryResponse{}
 
@@ -56,7 +56,7 @@ func (s *Client) UserQuery(request *models.UserQueryRequest) (*models.UserQueryR
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/query")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/query")
 	if err != nil {
 		return _result, err
 	}
@@ -84,58 +84,46 @@ func (s *Client) UserQuery(request *models.UserQueryRequest) (*models.UserQueryR
 	return &respObj.Result, nil
 }
 
-// UserUpdateMobile 用户变更注册手机号
-func (s *Client) UserUpdateMobile(request *models.UserUpdateMobileRequest) (*models.UserUpdateResponse, error) {
-	_result := &models.UserUpdateResponse{}
-
-	request.ChangeType = ChangeTypeMobile
-	request.MerchantNo = s.config.MerchantNo()
+// UserSystemId 查询会员系统id
+func (s *Client) UserSystemId(request *models.UserSystemIdRequest) (*models.UserSystemIdResponse, error) {
+	_result := &models.UserSystemIdResponse{}
 
 	encodeData, err := json.Marshal(request)
 	if err != nil {
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	return s.userUpdateRespDeal(&encodeData)
-}
-
-// UserIdCardImage 用户影像件
-func (s *Client) UserIdCardImage(request *models.UserUpdateIdCardImageRequest) (*models.UserUpdateResponse, error) {
-	_result := &models.UserUpdateResponse{}
-
-	request.ChangeType = ChangeTypeIdCardImage
-	request.MerchantNo = s.config.MerchantNo()
-
-	encodeData, err := json.Marshal(request)
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/system/id")
 	if err != nil {
-		return _result, errors.New("业务数据 JSON 编码失败")
+		return _result, err
 	}
 
-	return s.userUpdateRespDeal(&encodeData)
-}
+	type respStruct struct {
+		commonResp
+		Result models.UserSystemIdResponse `json:"result,omitempty"`
+	}
+	var respObj respStruct
 
-// UserIdBizType 拓展业务类型
-func (s *Client) UserIdBizType(request *models.UserUpdateBizTypeRequest) (*models.UserUpdateResponse, error) {
-	_result := &models.UserUpdateResponse{}
-
-	request.ChangeType = ChangeTypeBizType
-	request.MerchantNo = s.config.MerchantNo()
-	request.ProviderNo = s.config.ProviderNo()
-
-	encodeData, err := json.Marshal(request)
+	err = json.Unmarshal([]byte(respData), &respObj)
 	if err != nil {
-		return _result, errors.New("业务数据 JSON 编码失败")
+		return _result, errors.New("响应数据 JSON 解码失败")
 	}
 
-	return s.userUpdateRespDeal(&encodeData)
+	if respObj.Code != 200 {
+		return _result, errors.New(fmt.Sprintf("上游服务响应报告异常。Err: %d::%s", respObj.Code, respObj.Message))
+	}
+
+	if respObj.Result.StatusCode != "1000" {
+		return _result, errors.New(fmt.Sprintf("三方服务响应报告异常。Err: %s:::%s",
+			respObj.Result.StatusCode, respObj.Result.Msg))
+	}
+
+	return &respObj.Result, nil
 }
 
-// UserIdSettlementCard 结算卡信息
+// UserIdSettlementCard 绑定/变更结算卡
 func (s *Client) UserIdSettlementCard(request *models.UserUpdateSettlementCardRequest) (*models.UserUpdateResponse, error) {
 	_result := &models.UserUpdateResponse{}
-
-	request.ChangeType = ChangeTypeSettlementCard
-	request.MerchantNo = s.config.MerchantNo()
 
 	encodeData, err := json.Marshal(request)
 	if err != nil {
@@ -148,7 +136,7 @@ func (s *Client) UserIdSettlementCard(request *models.UserUpdateSettlementCardRe
 func (s *Client) userUpdateRespDeal(bizReqData *[]byte) (*models.UserUpdateResponse, error) {
 	_result := &models.UserUpdateResponse{}
 
-	respData, err := s.doRequest(string(*bizReqData), "/api/fec/acct/update")
+	respData, err := s.doRequest(string(*bizReqData), "/api/fec/v2/acct/update")
 	if err != nil {
 		return _result, err
 	}
@@ -176,23 +164,23 @@ func (s *Client) userUpdateRespDeal(bizReqData *[]byte) (*models.UserUpdateRespo
 	return &respObj.Result, nil
 }
 
-// UserAccount 用户账户开户
-func (s *Client) UserAccount(request *models.UserAccountRequest) (*models.UserAccountResponse, error) {
-	_result := &models.UserAccountResponse{}
+// UserBindCards 查询会员绑定的结算卡列表
+func (s *Client) UserBindCards(request *models.UserBindCardsRequest) (*models.UserBindCardsResponse, error) {
+	_result := &models.UserBindCardsResponse{}
 
 	encodeData, err := json.Marshal(request)
 	if err != nil {
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/open")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/bank/cards")
 	if err != nil {
 		return _result, err
 	}
 
 	type respStruct struct {
 		commonResp
-		Result models.UserAccountResponse `json:"result,omitempty"`
+		Result models.UserBindCardsResponse `json:"result,omitempty"`
 	}
 	var respObj respStruct
 
@@ -205,46 +193,7 @@ func (s *Client) UserAccount(request *models.UserAccountRequest) (*models.UserAc
 		return _result, errors.New(fmt.Sprintf("上游服务响应报告异常。Err: %d::%s", respObj.Code, respObj.Message))
 	}
 
-	if respObj.Result.StatusCode != "1000" {
-		return _result, errors.New(fmt.Sprintf("三方服务响应报告异常。Err: %s:::%s",
-			respObj.Result.StatusCode, respObj.Result.Msg))
-	}
-
-	return &respObj.Result, nil
-}
-
-// UserAccountLive 用户账户开户(活体认证)
-func (s *Client) UserAccountLive(request *models.UserAccountLiveRequest) (*models.UserAccountResponse, error) {
-	_result := &models.UserAccountResponse{}
-
-	request.MerchantNo = s.config.MerchantNo()
-
-	encodeData, err := json.Marshal(request)
-	if err != nil {
-		return _result, errors.New("业务数据 JSON 编码失败")
-	}
-
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/open/video")
-	if err != nil {
-		return _result, err
-	}
-
-	type respStruct struct {
-		commonResp
-		Result models.UserAccountResponse `json:"result,omitempty"`
-	}
-	var respObj respStruct
-
-	err = json.Unmarshal([]byte(respData), &respObj)
-	if err != nil {
-		return _result, errors.New("响应数据 JSON 解码失败")
-	}
-
-	if respObj.Code != 200 {
-		return _result, errors.New(fmt.Sprintf("上游服务响应报告异常。Err: %d::%s", respObj.Code, respObj.Message))
-	}
-
-	if respObj.Result.StatusCode != "1000" {
+	if respObj.Result.StatusCode != "" {
 		return _result, errors.New(fmt.Sprintf("三方服务响应报告异常。Err: %s:::%s",
 			respObj.Result.StatusCode, respObj.Result.Msg))
 	}

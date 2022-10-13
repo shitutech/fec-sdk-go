@@ -1,4 +1,4 @@
-module github.com/shitutech/fec-sdk-go
+module github.com/shitutech/fec-sdk-go/v2
 
 go 1.15
 
