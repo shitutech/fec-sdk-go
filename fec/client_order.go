@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/shitutech/fec-sdk-go/models"
+	"github.com/shitutech/fec-sdk-go/v2/models"
 )
 
 // OrderPay 订单支付
@@ -21,7 +21,7 @@ func (s *Client) OrderPay(request *models.OrderPayRequest) (*models.OrderPayResp
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/order/pay")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/order/pay")
 	if err != nil {
 		return _result, err
 	}
@@ -58,7 +58,7 @@ func (s *Client) OrderBatchQuery(request *models.OrderBatchQueryRequest) (*model
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/order/query/batch")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/order/query/batch")
 	if err != nil {
 		return _result, err
 	}
@@ -95,7 +95,7 @@ func (s *Client) OrderSubQuery(request *models.OrderSubQueryRequest) (*models.Or
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/order/query/batch")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/order/query/batch")
 	if err != nil {
 		return _result, err
 	}

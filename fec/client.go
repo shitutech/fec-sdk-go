@@ -1,6 +1,7 @@
 package fec
 
 import (
+	"bytes"
 	"crypto"
 	"crypto/aes"
 	"crypto/rand"
@@ -13,9 +14,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/andreburgaud/crypt2go/ecb"
-	"github.com/andreburgaud/crypt2go/padding"
-	"github.com/shitutech/fec-sdk-go/helpers"
-	"github.com/shitutech/fec-sdk-go/models"
+	"github.com/shitutech/fec-sdk-go/v2/helpers"
+	"github.com/shitutech/fec-sdk-go/v2/models"
 	"io"
 	"net/http"
 	"strconv"
@@ -52,7 +52,7 @@ func (s *Client) AcctInfo(request *models.AcctInfoRequest) (*models.AcctInfoResp
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/info")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/info")
 	if err != nil {
 		return _result, err
 	}
@@ -165,11 +165,13 @@ func (s *Client) encryptBizData(bizData *string, aesKey *string) (string, error)
 	}
 
 	mode := ecb.NewECBEncrypter(cipher)
-	padder := padding.NewPkcs5Padding()
-	pt, err := padder.Pad([]byte(*bizData))
-	if err != nil {
-		return "", err
-	}
+	//padder := padding.NewPkcs5Padding()
+	//pt, err := padder.Pad([]byte(*bizData))
+	//if err != nil {
+	//	return "", err
+	//}
+
+	pt := s.PKCS5Padding([]byte(*bizData), mode.BlockSize())
 
 	ct := make([]byte, len(pt))
 	mode.CryptBlocks(ct, pt)
@@ -177,6 +179,12 @@ func (s *Client) encryptBizData(bizData *string, aesKey *string) (string, error)
 	hashData := base64.StdEncoding.EncodeToString(ct)
 
 	return hashData, nil
+}
+
+func (s *Client) PKCS5Padding(cipherText []byte, blockSize int) []byte {
+	paddingLen := blockSize - len(cipherText)%blockSize
+	padText := bytes.Repeat([]byte{byte(paddingLen)}, paddingLen)
+	return append(cipherText, padText...)
 }
 
 func (s *Client) encryptAesKey(aesKey *string) (string, error) {

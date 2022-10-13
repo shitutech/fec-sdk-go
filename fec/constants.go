@@ -2,10 +2,17 @@ package fec
 
 const (
 	/*
-	 支付通道（1:众邦, 2: 支付宝）
+		账户类型1商户开户2服务商开户
 	*/
-	PayPassZb     = "1"
-	PayPassAlipay = "2"
+	AccountTypeMch     = "1"
+	AccountTypeService = "2"
+
+	/*
+	 支付通道（1:众邦 2：支付宝 4.招商银行）
+	*/
+	PayPassZb       = "1"
+	PayPassAlipay   = "2"
+	PayPassZhaoHang = "4"
 
 	/*
 		业务类型 1委托代征2.个体户注册(分包)3.自然人代开4.临时税务登记

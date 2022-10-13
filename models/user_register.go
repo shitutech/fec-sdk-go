@@ -15,10 +15,14 @@ type UserRegisterRequest struct {
 	ImgIdCardBack string `json:"imgIdCardBack"`
 	// 业务类型 1委托代征2.个体户注册(分包)3.自然人代开4.临时税务登记
 	BusType string `json:"busType"`
+	// 面部高清照，格式要求：Base64值；Base64编码后的大小不超2M
+	ImgFace string `json:"imgFace,omitempty"`
 }
 
 type UserRegisterResponse struct {
 	BizCommonResponse
-	// 会员ID
+	// 商户会员ID
 	MemberId string `json:"memberId,omitempty"`
+	// 系统会员ID
+	SystemId string `json:"systemId,omitempty"`
 }

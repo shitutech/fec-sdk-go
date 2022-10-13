@@ -20,8 +20,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/shitutech/fec-sdk-go/fec"
-	"github.com/shitutech/fec-sdk-go/models"
+	"github.com/shitutech/fec-sdk-go/v2/fec"
+	"github.com/shitutech/fec-sdk-go/v2/models"
 )
 
 func main() {

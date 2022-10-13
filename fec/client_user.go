@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/shitutech/fec-sdk-go/models"
+	"github.com/shitutech/fec-sdk-go/v2/models"
 )
 
 // UserRegister 用户注册
@@ -19,7 +19,7 @@ func (s *Client) UserRegister(request *models.UserRegisterRequest) (*models.User
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/register")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/register")
 	if err != nil {
 		return _result, err
 	}
@@ -56,7 +56,7 @@ func (s *Client) UserQuery(request *models.UserQueryRequest) (*models.UserQueryR
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/query")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/query")
 	if err != nil {
 		return _result, err
 	}
@@ -148,7 +148,7 @@ func (s *Client) UserIdSettlementCard(request *models.UserUpdateSettlementCardRe
 func (s *Client) userUpdateRespDeal(bizReqData *[]byte) (*models.UserUpdateResponse, error) {
 	_result := &models.UserUpdateResponse{}
 
-	respData, err := s.doRequest(string(*bizReqData), "/api/fec/acct/update")
+	respData, err := s.doRequest(string(*bizReqData), "/api/fec/v2/acct/update")
 	if err != nil {
 		return _result, err
 	}
@@ -185,7 +185,7 @@ func (s *Client) UserAccount(request *models.UserAccountRequest) (*models.UserAc
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/open")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/open")
 	if err != nil {
 		return _result, err
 	}
@@ -224,7 +224,7 @@ func (s *Client) UserAccountLive(request *models.UserAccountLiveRequest) (*model
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/acct/open/video")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/open/video")
 	if err != nil {
 		return _result, err
 	}
