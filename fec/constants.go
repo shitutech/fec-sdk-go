@@ -30,6 +30,12 @@ const (
 	UserQueryTypeMemberId = "3"
 
 	/*
+		3. 根据身份证号4.根据商户会员Id查询系统会员Id
+	*/
+	UserSystemQueryTypeId  = "3"
+	UserSystemQueryTypeMch = "4"
+
+	/*
 		账户状态 0:未开通 1:开通中 2:开通成功 3:开通失败 （查询类型 2 返回）
 	*/
 	AcctStatusNotActivated          = "1"

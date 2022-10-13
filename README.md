@@ -50,18 +50,16 @@ func main() {
 
 # 接口
 
-| API             | Client 请求方法                | 请求                                  | 响应                          |
-|-----------------|----------------------------|-------------------------------------|-----------------------------|
-| 用户注册            | ``UserRegister()``         | ``UserRegisterRequest``             | ``UserRegisterResponse``    |
-| 用户信息查询          | ``UserQuery()``            | ``UserQueryRequest``                | ``UserQueryResponse``       |
-| 用户信息变更 - 注册手机号  | ``UserUpdateMobile()``     | ``UserUpdateMobileRequest``         | ``UserUpdateResponse``      |
-| 用户信息变更 - 影像件    | ``UserIdCardImage()``      | ``UserUpdateIdCardImageRequest``    | ``UserUpdateResponse``      |
-| 用户信息变更 - 拓展业务类型 | ``UserIdBizType()``        | ``UserUpdateBizTypeRequest``        | ``UserUpdateResponse``      |
-| 用户信息变更 - 结算卡信息  | ``UserIdSettlementCard()`` | ``UserUpdateSettlementCardRequest`` | ``UserUpdateResponse``      |
-| 用户账户开户          | ``UserAccount()``          | ``UserAccountRequest``              | ``UserAccountResponse``     |
-| 用户账户开户（活体认证）    | ``UserAccountLive()``      | ``UserAccountLiveRequest``          | ``UserAccountResponse``     |
-| 订单支付            | ``OrderPay()``             | ``OrderPayRequest``                 | ``OrderPayResponse``        |
-| 批次订单号查询订单       | ``OrderBatchQuery()``      | ``OrderBatchQueryRequest``          | ``OrderBatchQueryResponse`` |
-| 子订单详情查询         | ``OrderSubQuery()``        | ``OrderSubQueryRequest``            | ``OrderSubQueryResponse``   |
-| 商户账户信息查询        | ``AcctInfo()``             | ``AcctInfoRequest``                 | ``AcctInfoResponse``        |
-| 商户账户列表查询        | ``AcctList()``             | ``AcctListRequest``                 | ``AcctListResponse``        |
+| API            | Client 请求方法                | 请求                                  | 响应                          |
+|----------------|----------------------------|-------------------------------------|-----------------------------|
+| 用户注册           | ``UserRegister()``         | ``UserRegisterRequest``             | ``UserRegisterResponse``    |
+| 用户信息查询         | ``UserQuery()``            | ``UserQueryRequest``                | ``UserQueryResponse``       |
+| 查询会员系统         | ``UserSystemId()``         | ``UserSystemIdRequest``             | ``UserSystemIdResponse``    |
+| 用户信息变更 - 结算卡信息 | ``UserIdSettlementCard()`` | ``UserUpdateSettlementCardRequest`` | ``UserUpdateResponse``      |
+| 查询会员绑定的结算卡列表   | ``UserBindCards``          | ``UserBindCardsRequest``            | ``UserBindCardsResponse``   |
+| 查询通道支持的银行列表    | ``SupportBankList``        | ``SupportBankListRequest``          | ``SupportBankListResponse`` |
+| 订单支付           | ``OrderPay()``             | ``OrderPayRequest``                 | ``OrderPayResponse``        |
+| 批次订单号查询订单      | ``OrderBatchQuery()``      | ``OrderBatchQueryRequest``          | ``OrderBatchQueryResponse`` |
+| 子订单详情查询        | ``OrderSubQuery()``        | ``OrderSubQueryRequest``            | ``OrderSubQueryResponse``   |
+| 商户账户信息查询       | ``AcctInfo()``             | ``AcctInfoRequest``                 | ``AcctInfoResponse``        |
+| 商户账户列表查询       | ``AcctList()``             | ``AcctListRequest``                 | ``AcctListResponse``        |
