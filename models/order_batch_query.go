@@ -1,13 +1,19 @@
 package models
 
 type OrderBatchQueryRequest struct {
-	// 批次流水号
+	// 是否自定义流水号 【0.否1.是】
+	IsCustom string `json:"isCustom"`
+	// 批次流水号 isCustom=0时必传
 	BatchOrderId string `json:"batchOrderId"`
+	// 自定义批次号 isCustom=1时必传
+	BatchOrderNo string `json:"batchOrderNo"`
 }
 
 type OrderBatchPayListItem struct {
 	// 会员ID
 	MemberId string `json:"memberId,omitempty"`
+	// 系统会员ID
+	SystemId string `json:"systemId,omitempty"`
 	// 会员名称
 	Name string `json:"name,omitempty"`
 	// 身份证号
@@ -28,6 +34,8 @@ type OrderBatchQueryResponse struct {
 	BizCommonResponse
 	// 批次流水号
 	BatchOrderId string `json:"batchOrderId,omitempty"`
+	// 自定义流水号, 自定义时有值
+	BatchOrderNo string `json:"batchOrderNo,omitempty"`
 	// 商户号
 	MerchantNo string `json:"merchantNo,omitempty"`
 	// 服务商号

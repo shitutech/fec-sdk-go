@@ -71,4 +71,16 @@ const (
 	PayStatusPaymentSuccessful = "2"
 	PayStatusPaymentFailed     = "3"
 	PayStatusWithdrawn         = "4"
+
+	/*
+		是否自定义流水号 【0.不启用1.启用】
+	*/
+	OrderIsCustomN = "0"
+	OrderIsCustomY = "1"
+
+	/*
+		是否使用默认绑定卡 （0 否1 是 ）【支付宝到户是传1】
+	*/
+	OrderIsDefaultCardN = "0"
+	OrderIsDefaultCardY = "1"
 )
