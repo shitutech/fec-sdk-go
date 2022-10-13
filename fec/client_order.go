@@ -95,7 +95,7 @@ func (s *Client) OrderSubQuery(request *models.OrderSubQueryRequest) (*models.Or
 		return _result, errors.New("业务数据 JSON 编码失败")
 	}
 
-	respData, err := s.doRequest(string(encodeData), "/api/fec/order/query/batch")
+	respData, err := s.doRequest(string(encodeData), "/api/fec/order/query/detail")
 	if err != nil {
 		return _result, err
 	}
