@@ -5,12 +5,12 @@
 # 安装
 
 ```shell
-go get github.com/shitutech/fec-sdk-go
+go get github.com/shitutech/fec-sdk-go/v2
 ```
 
 ```shell
 ## 更新
-go get -u github.com/shitutech/fec-sdk-go
+go get -u github.com/shitutech/fec-sdk-go/v2
 ```
 
 # 调用
@@ -33,14 +33,18 @@ func main() {
 		SetPrivateKey("privateKey-single-line")
 
 	_client := fec.NewClient(c)
-	acctInfoReq := &models.AcctInfoRequest{PayPass: "2"}
+	acctInfoReq := &models.AcctInfoRequest{
+		AccountType: fec.AccountTypeService,
+		PayPass: fec.PayPassZhaoHang,
+		ProviderNo: c.ProviderNo(),
+	}
 
 	accInfoResp, err := _client.AcctInfo(acctInfoReq)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	fmt.Println(accInfoResp.Balance)
+	fmt.Println(accInfoResp)
 }
 ```
 
@@ -59,4 +63,5 @@ func main() {
 | 订单支付            | ``OrderPay()``             | ``OrderPayRequest``                 | ``OrderPayResponse``        |
 | 批次订单号查询订单       | ``OrderBatchQuery()``      | ``OrderBatchQueryRequest``          | ``OrderBatchQueryResponse`` |
 | 子订单详情查询         | ``OrderSubQuery()``        | ``OrderSubQueryRequest``            | ``OrderSubQueryResponse``   |
-| 商户信息查询          | ``AcctInfo()``             | ``AcctInfoRequest``                 | ``AcctInfoResponse``        |
+| 商户账户信息查询        | ``AcctInfo()``             | ``AcctInfoRequest``                 | ``AcctInfoResponse``        |
+| 商户账户列表查询        | ``AcctList()``             | ``AcctListRequest``                 | ``AcctListResponse``        |

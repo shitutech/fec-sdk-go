@@ -15,7 +15,6 @@ import (
 	"fmt"
 	"github.com/andreburgaud/crypt2go/ecb"
 	"github.com/shitutech/fec-sdk-go/v2/helpers"
-	"github.com/shitutech/fec-sdk-go/v2/models"
 	"io"
 	"net/http"
 	"strconv"
@@ -41,45 +40,6 @@ func NewClient(config *Config) *Client {
 	s.config = config
 
 	return s
-}
-
-// AcctInfo 商户信息查询
-func (s *Client) AcctInfo(request *models.AcctInfoRequest) (*models.AcctInfoResponse, error) {
-	_result := &models.AcctInfoResponse{}
-
-	encodeData, err := json.Marshal(request)
-	if err != nil {
-		return _result, errors.New("业务数据 JSON 编码失败")
-	}
-
-	respData, err := s.doRequest(string(encodeData), "/api/fec/v2/acct/info")
-	if err != nil {
-		return _result, err
-	}
-
-	// {"code":400,"message":"signature error","success":false,"timestamp":1663324104}
-	// {"code":200,"message":"操作成功！","success":true,"timestamp":1663323110463,"result":{"statusCode":"1000","msg":null,"balance"0","availableFee":"0.00","frozenBalance":"0"}}
-	type respStruct struct {
-		commonResp
-		Result models.AcctInfoResponse `json:"result,omitempty"`
-	}
-	var respObj respStruct
-
-	err = json.Unmarshal([]byte(respData), &respObj)
-	if err != nil {
-		return _result, errors.New("响应数据 JSON 解码失败")
-	}
-
-	if respObj.Code != 200 {
-		return _result, errors.New(fmt.Sprintf("上游服务响应报告异常。Err: %d::%s", respObj.Code, respObj.Message))
-	}
-
-	if respObj.Result.StatusCode != "1000" {
-		return _result, errors.New(fmt.Sprintf("三方服务响应报告异常。Err: %s:::%s",
-			respObj.Result.StatusCode, respObj.Result.Msg))
-	}
-
-	return &respObj.Result, nil
 }
 
 func (s *Client) doRequest(bizData string, apiPath string) (string, error) {
